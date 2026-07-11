@@ -1,0 +1,215 @@
+{
+  "acceptance_targets": {
+    "fes_mae_kT": 1.0,
+    "basin_ddG_kT": 1.0,
+    "valid_frac": 0.95
+  },
+  "reference": {
+    "n_frames": 60000,
+    "aggregate_ns": 60.0,
+    "n_seeds": 3,
+    "ns_per_seed": 20.0,
+    "kT_kJ_per_mol": 2.4943386299999997,
+    "energy_median_kT": -45.69932941632467,
+    "energy_range_kT": [
+      -60.26825524976352,
+      -19.03561976393532
+    ],
+    "basin_pops": {
+      "C7eq_ext": 0.87935,
+      "alphaR": 0.11808333333333333,
+      "alphaL": 0.0025666666666666667
+    }
+  },
+  "energy_validity": {
+    "threshold_kT": 22.251222630180916,
+    "reference_99.9pct_kT": -27.748777369819084,
+    "FM": {
+      "finite_frac": 1.0,
+      "valid_frac": 0.9808,
+      "median_kT": -42.93133588378268,
+      "pct95_kT": -16.29456736653094
+    },
+    "DDPM": {
+      "finite_frac": 1.0,
+      "valid_frac": 0.98412,
+      "median_kT": -44.11318360119305,
+      "pct95_kT": -19.310798438572007
+    }
+  },
+  "ramachandran_fes_mae": {
+    "FM": {
+      "MAE_kT_thresh_1pct": 0.4707103793408586,
+      "nbins_1pct": 859,
+      "MAE_kT_thresh_0.1pct": 0.811155788464286,
+      "nbins_0.1pct": 1374
+    },
+    "DDPM": {
+      "MAE_kT_thresh_1pct": 0.5883532413930344,
+      "nbins_1pct": 859,
+      "MAE_kT_thresh_0.1pct": 0.8168519375162462,
+      "nbins_0.1pct": 1374
+    }
+  },
+  "dihedral_distributions": {
+    "FM": {
+      "W1_phi": 0.06130696588564496,
+      "W1_psi": 0.02363356274245042,
+      "JS_phi": 0.01253413225333072,
+      "JS_psi": 0.002270275360683309
+    },
+    "DDPM": {
+      "W1_phi": 0.04148757936799274,
+      "W1_psi": 0.08687256622214613,
+      "JS_phi": 0.006504639026100751,
+      "JS_psi": 0.00808477351636817
+    }
+  },
+  "basin_populations": {
+    "reference": {
+      "C7eq_ext": 0.87935,
+      "alphaR": 0.11808333333333333,
+      "alphaL": 0.0025666666666666667
+    },
+    "FM": {
+      "C7eq_ext": 0.87142,
+      "alphaR": 0.12664,
+      "alphaL": 0.00194,
+      "ddG_alphaR_kT": -0.07901675886030857,
+      "ddG_alphaL_kT": 0.2708611339260596
+    },
+    "DDPM": {
+      "C7eq_ext": 0.90804,
+      "alphaR": 0.08882,
+      "alphaL": 0.00314,
+      "ddG_alphaR_kT": 0.31688417235078115,
+      "ddG_alphaL_kT": -0.1695093274165762
+    }
+  },
+  "local_geometry": {
+    "FM": {
+      "bond_W1_mean_nm": 9.797612600454657e-06,
+      "bond_W1_max_nm": 3.610346192197802e-05,
+      "angle_W1_mean_rad": 0.0005660084963311343,
+      "angle_W1_max_rad": 0.0009933314178782778
+    },
+    "DDPM": {
+      "bond_W1_mean_nm": 1.336406164435305e-05,
+      "bond_W1_max_nm": 5.594967265189106e-05,
+      "angle_W1_mean_rad": 0.0007424505574038353,
+      "angle_W1_max_rad": 0.0011204176658259062
+    }
+  },
+  "sampling": {
+    "FM": {
+      "method": "heun_ODE",
+      "steps": 50,
+      "n_samples": 50000
+    },
+    "DDPM": {
+      "method": "ancestral",
+      "T": 1000,
+      "n_samples": 50000,
+      "note": "DDIM degrades numerically (cosine acp->0); ancestral is primary"
+    }
+  },
+  "verdict": {
+    "FM": {
+      "FES_MAE_pass": true,
+      "basin_ddG_pass": true,
+      "validity_pass": true,
+      "valid_frac": 0.9808,
+      "OVERALL_PASS": true
+    },
+    "DDPM": {
+      "FES_MAE_pass": true,
+      "basin_ddG_pass": true,
+      "validity_pass": true,
+      "valid_frac": 0.98412,
+      "OVERALL_PASS": true
+    }
+  },
+  "dynamics_emulator": {
+    "lag_tau_ps": 20,
+    "training": {
+      "loss_final": 0.9753,
+      "n_steps": 25000,
+      "n_pairs_train": 39960,
+      "architecture": "conditional_ResMLP_hidden256_4blocks",
+      "conditioning": "concat x_t into vector field"
+    },
+    "rollout": {
+      "n_chains": 20,
+      "chain_len_steps": 1500,
+      "aggregate_ns": 600.0
+    },
+    "stationary_basins": {
+      "C7eq_ext": 0.8655562958027981,
+      "alphaR": 0.12854763491005997,
+      "alphaL": 0.005896069287141905
+    },
+    "stationary_JS_vs_reference": 0.006685311119737395,
+    "slowest_timescale_ps": {
+      "reference_converged": 15.137020558685204,
+      "emulator_lag1": 8.04867474635458,
+      "ratio": 0.531721200691405
+    },
+    "implied_timescales_ps": {
+      "reference": {
+        "2": [
+          20.613476293195085,
+          8.141297581445512,
+          6.098579178442432
+        ],
+        "5": [
+          18.849201729122303,
+          8.426899266838419,
+          5.136765693667769
+        ],
+        "10": [
+          16.06218334536981,
+          8.498696822861994,
+          3.8964579315621797
+        ],
+        "20": [
+          14.514346794150903,
+          11.768059877820487,
+          8.077299070860672
+        ],
+        "50": [
+          15.759694323219504,
+          15.432561568627284,
+          15.380746190347349
+        ],
+        "100": [
+          30.749580529058193,
+          30.41524193628326,
+          30.131816434337242
+        ]
+      },
+      "emulator": {
+        "20": [
+          8.04867474635458,
+          7.1568823782497715,
+          6.746610684898897
+        ],
+        "40": [
+          13.810733623421857,
+          13.596967410760708,
+          13.474207785419352
+        ],
+        "60": [
+          21.05405367526131,
+          19.82796281587258,
+          19.7712977048828
+        ],
+        "100": [
+          34.48033444985116,
+          33.45127015658426,
+          33.27239649454712
+        ]
+      }
+    },
+    "assessment": "Stationary distribution reproduced (JS=0.007, basins match reference and equilibrium FM). Kinetics correct in order of magnitude; slowest ITS ~2x too fast at short lag (large-tau propagator loses sub-lag memory), converging toward reference at longer MSM lag. Honest partial success as anticipated for kinetics."
+  }
+}

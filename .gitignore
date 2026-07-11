@@ -1,0 +1,16 @@
+# Regenerable intermediate arrays (rebuilt by the pipeline)
+data/encoded.npz
+data/samples.npz
+data/samples_xyz.npz
+data/energies.npz
+data/emu_enc.npy
+data/emu_phipsi.npz
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# Training logs
+*.out

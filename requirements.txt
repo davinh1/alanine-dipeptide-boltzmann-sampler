@@ -1,0 +1,12 @@
+# Core scientific stack (install via conda-forge for OpenMM):
+#   conda create -n ala2 -c conda-forge python=3.11 openmm openmmtools mdtraj pytorch deeptime pyyaml scipy matplotlib pot
+openmm>=8.0
+openmmtools>=0.26
+mdtraj>=1.11
+torch>=2.0
+deeptime>=0.4
+numpy>=1.26,<2.0
+scipy>=1.11
+matplotlib>=3.7
+pyyaml>=6.0
+pot>=0.9        # optional; scipy.stats.wasserstein_distance covers 1-D metrics

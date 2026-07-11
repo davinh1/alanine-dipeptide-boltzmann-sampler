@@ -1,0 +1,92 @@
+project: learned Boltzmann sampler - alanine dipeptide
+seed: 20260710
+versions:
+  python: 3.11.15
+  openmm: 8.5.2.dev-36a30cb
+  mdtraj: 1.11.1
+  torch: 2.12.1
+  openmmtools: 0.26.0
+  deeptime: 0.4.5
+  numpy: 1.26.4
+  scipy: 1.17.1
+  pot: 0.9.6.post1
+system:
+  name: AlanineDipeptideImplicit
+  forcefield: amber ff14SB + implicit solvent (openmmtools testsystem default)
+  n_atoms: 22
+  temperature_K: 300.0
+md:
+  integrator: LangevinMiddleIntegrator
+  timestep_fs: 2.0
+  hydrogen_mass_repartition: true
+  friction_per_ps: 1.0
+  platform: CPU
+  minimize: true
+  equilibration_ns: 0.5
+  n_seeds: 3
+  production_ns_per_seed: 15.0
+  save_interval_ps: 1.0
+  seeds:
+  - 1
+  - 2
+  - 3
+  actual_ns_per_seed: 20.0
+  actual_aggregate_ns: 60.0
+representation:
+  type: internal_coords_BAT
+  torsion_encoding: cos_sin
+  standardize_nonperiodic: true
+  split: by_seed_and_temporal_tail
+  test_fraction: 0.2
+  encoded_dim: 79
+flow_matching:
+  type: OT-CFM_independent_coupling
+  net: residual_MLP
+  hidden: 256
+  n_blocks: 4
+  time_embed: sinusoidal
+  time_embed_dim: 128
+  optimizer: AdamW
+  lr: 0.0002
+  weight_decay: 1.0e-05
+  warmup_steps: 500
+  batch_size: 1024
+  n_steps: 20000
+  grad_clip: 1.0
+  ema_decay: 0.999
+  sigma_min: 0.0001
+  lr_schedule: cosine
+  threads: 6
+ddpm:
+  type: DDPM_epsilon_pred
+  net: residual_MLP
+  hidden: 256
+  n_blocks: 4
+  n_timesteps: 1000
+  beta_schedule: cosine
+  optimizer: AdamW
+  lr: 0.0002
+  weight_decay: 1.0e-05
+  warmup_steps: 500
+  batch_size: 1024
+  n_steps: 20000
+  grad_clip: 1.0
+  ema_decay: 0.999
+  threads: 6
+sampling:
+  n_samples: 50000
+  fm_solver:
+  - heun
+  - dopri5
+  fm_steps_sweep:
+  - 10
+  - 20
+  - 50
+  - 100
+  ddpm_modes:
+  - ancestral
+  - ddim
+acceptance:
+  fes_mae_kT: 1.0
+  basin_dG_kT: 1.0
+  valid_frac: 0.95

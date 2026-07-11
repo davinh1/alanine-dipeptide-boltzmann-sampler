@@ -1,0 +1,47 @@
+{
+  "kT_kJmol": 2.4943,
+  "basin_populations_per_seed": {
+    "seed1": {
+      "C7eq_ext": 0.87505,
+      "alphaR": 0.12425,
+      "alphaL": 0.0007
+    },
+    "seed2": {
+      "C7eq_ext": 0.8829,
+      "alphaR": 0.1129,
+      "alphaL": 0.0042
+    },
+    "seed3": {
+      "C7eq_ext": 0.8801,
+      "alphaR": 0.1171,
+      "alphaL": 0.0028
+    }
+  },
+  "block_averaged": {
+    "C7eq_ext": [
+      0.8794,
+      0.0226
+    ],
+    "alphaR": [
+      0.1181,
+      0.0223
+    ],
+    "alphaL": [
+      0.0026,
+      0.0032
+    ]
+  },
+  "dG_alphaR_kT_per_seed": [
+    1.9519853626054284,
+    2.0567094727519204,
+    2.0170072667760945
+  ],
+  "dG_alphaL_kT_per_seed": [
+    7.1309559715208986,
+    5.348127418618215,
+    5.750416120198608
+  ],
+  "dG_alphaR_range_kT": 0.10472411014649197,
+  "dG_alphaL_range_kT": 1.782828552902684,
+  "verdict": "well-sampled basins (C7eq/extended, alphaR) converged within ~0.1 kT across seeds; alphaL is a rare high-barrier state with larger relative spread but negligible population (~0.3%)"
+}
